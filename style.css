@@ -35,7 +35,7 @@ button {
 button:hover {
   background-color: #0056b3;
 } */
- body {
+ /* body {
   font-family: sans-serif;
   text-align: center;
   background-color: #fafafa;
@@ -63,4 +63,21 @@ button:hover {
 .gallery img:hover {
   transform: scale(1.05);
   border-color: #666;
+} */
+
+
+.grid {
+  width: 240px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.cell {
+  width: 55px;
+  height: 55px;
+  background: #eee;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s;
 }

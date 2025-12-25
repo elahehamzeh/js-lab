@@ -52,14 +52,101 @@
 // }
 
 // عکس بزرگ رو انتخاب می‌کنیم
-const bigImage = document.getElementById('bigImage');
+// const bigImage = document.getElementById('bigImage');
 
 
-const images = document.querySelectorAll('.gallery img');
+// const images = document.querySelectorAll('.gallery img');
 
 
-images.forEach(function(img) {
-  img.onclick = function() {
-    bigImage.src = this.src; 
+// images.forEach(function(img) {
+//   img.onclick = function() {
+//     bigImage.src = this.src; 
+//   }
+// });
+
+// box color
+
+const cells = document.querySelectorAll(".cell");
+let count = 0;
+const countDisplay = document.getElementById("count");
+
+// for (let i = 0; i < cells.length; i++) {
+//   cells[i].addEventListener("click", function() {
+//     let r = Math.floor(Math.random() * 256);
+//     let g = Math.floor(Math.random() * 256);
+//     let b = Math.floor(Math.random() * 256);
+
+//     this.style.background = "rgb(" + r + "," + g + "," + b + ")";
+
+    
+//     if (!this.clicked) {
+//       this.clicked = true;
+//       count++;
+//       countDisplay.innerHTML = count;
+//     }
+//   });
+// }
+// ===== MODEL =====
+const ContactModel = (function () {
+  const contacts = ['sana', 'dara', 'samin', 'sima', 'sina', 'bahram', 'iman'];
+
+  function getAll() {
+    return contacts;
   }
+
+  function filterByS() {
+    return contacts.filter(name => name.startsWith('s'));
+  }
+
+  return {
+    getAll,
+    filterByS
+  };
+})();
+
+// ===== VIEW =====
+const ContactView = (function () {
+  const ul = document.querySelector('ul');
+  const span = document.querySelector('span');
+
+  function render(list) {
+    ul.innerHTML = '';
+    list.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      ul.appendChild(li);
+    });
+  }
+
+  function bindFilter(handler) {
+    span.addEventListener('click', handler);
+  }
+
+  return {
+    render,
+    bindFilter
+  };
+})();
+
+// ===== CONTROLLER =====
+const ContactController = (function (Model, View) {
+
+  function init() {
+    View.render(Model.getAll());
+    View.bindFilter(handleFilter);
+  }
+
+  function handleFilter() {
+    View.render(Model.filterByS());
+  }
+
+  return {
+    init
+  };
+
+})(ContactModel, ContactView);
+
+// ===== INIT =====
+window.addEventListener('load', function () {
+  ContactController.init();
 });
